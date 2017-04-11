@@ -35,7 +35,8 @@ chip select pin. You can use any pin for the CS, but we use D5 here:
 
 .. code:: python
 
-    from nativeio import SPI, DigitalInOut
+    from busio import SPI
+    from digitalio import DigitalInOut
     import board
 
     spi = SPI(clock=board.SCK, MISO=board.MISO, MOSI=board.MOSI)
