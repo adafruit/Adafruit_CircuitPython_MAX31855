@@ -28,8 +28,10 @@ This is a CircuitPython driver for the Maxim Integrated MAX31855 thermocouple
 amplifier module.
 
 """
-
-import ustruct
+try:
+    import struct
+except:
+    import ustruct as struct
 
 from adafruit_bus_device.spi_device import SPIDevice
 
@@ -54,7 +56,7 @@ class MAX31855:
             raise RuntimeError("short circuit to power")
         if self.data[1] & 0x01:
             raise RuntimeError("faulty reading")
-        temp, refer = ustruct.unpack('>hh', self.data)
+        temp, refer = struct.unpack('>hh', self.data)
         refer >>= 4
         temp >>= 2
         if internal:
