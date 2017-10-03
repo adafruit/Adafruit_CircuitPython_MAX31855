@@ -30,7 +30,7 @@ amplifier module.
 """
 try:
     import struct
-except:
+except ImportError:
     import ustruct as struct
 
 from adafruit_bus_device.spi_device import SPIDevice
