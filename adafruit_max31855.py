@@ -22,11 +22,26 @@
 
 """
 ``adafruit_max31855``
-=====================
+===========================
 
 This is a CircuitPython driver for the Maxim Integrated MAX31855 thermocouple
 amplifier module.
 
+* Author(s): Radomir Dopieralski
+
+Implementation Notes
+--------------------
+
+**Hardware:**
+
+* Adafruit `MAX31855 Thermocouple Amplifier Breakout
+  <https://www.adafruit.com/product/269>`_ (Product ID: 269)
+
+**Software and Dependencies:**
+
+* Adafruit CircuitPython firmware for the ESP8622 and M0-based boards:
+  https://github.com/adafruit/circuitpython/releases
+* Adafruit's Bus Device library: https://github.com/adafruit/Adafruit_CircuitPython_BusDevice
 """
 try:
     import struct
