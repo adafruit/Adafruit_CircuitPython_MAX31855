@@ -9,6 +9,10 @@
     :target: https://discord.gg/nBQh6qu
     :alt: Discord
 
+.. image:: https://travis-ci.org/adafruit/Adafruit_CircuitPython_MAX31855.svg?branch=master
+    :target: https://travis-ci.org/adafruit/Adafruit_CircuitPython_MAX31855
+    :alt: Build Status
+
 CircuitPython driver for the `MAX31855 Thermocouple Amplifier Breakout <https://www.adafruit.com/product/269>`_
 
 Dependencies
