@@ -2,7 +2,7 @@
 ============
 
 .. image:: https://readthedocs.org/projects/adafruit-circuitpython-MAX31855/badge/?version=latest
-    :target: https://circuitpython.readthedocs.io/projects/MAX31855/en/latest/
+    :target: https://circuitpython.readthedocs.io/projects/max31855/en/latest/
     :alt: Documentation Status
 
 .. image :: https://img.shields.io/discord/327254708534116352.svg
