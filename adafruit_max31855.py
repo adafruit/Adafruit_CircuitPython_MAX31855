@@ -64,7 +64,7 @@ class MAX31855:
 
     def _read(self, internal=False):
         with self.spi_device as spi:
-            spi.readinto(self.data)
+            spi.readinto(self.data)  #pylint: disable=no-member
         if self.data[3] & 0x01:
             raise RuntimeError("thermocouple not connected")
         if self.data[3] & 0x02:
