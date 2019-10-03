@@ -92,12 +92,13 @@ class MAX31855:
         return self._read(True) * 0.0625
 
     @property
-    def temperatureNIST(self):
+    def temperature_NIST(self):
         """
         Thermocouple temperature in degrees Celsius, computed using
         raw voltages and NIST approximation for Type K, see:
         https://srdata.nist.gov/its90/download/type_k.tab
         """
+        # pylint: disable=bad-whitespace, bad-continuation, invalid-name
         # temperature of remote thermocouple junction
         TR = self.temperature
         # temperature of device (cold junction)
@@ -108,14 +109,14 @@ class MAX31855:
         if TAMB >= 0:
             VREF =(-0.176004136860E-01 +
                     0.389212049750E-01 * TAMB +
-                    0.185587700320E-04 * pow(TAMB,2) +
-                   -0.994575928740E-07 * pow(TAMB,3) +
-                    0.318409457190E-09 * pow(TAMB,4) +
-                   -0.560728448890E-12 * pow(TAMB,5) +
-                    0.560750590590E-15 * pow(TAMB,6) +
-                   -0.320207200030E-18 * pow(TAMB,7) +
-                    0.971511471520E-22 * pow(TAMB,8) +
-                   -0.121047212750E-25 * pow(TAMB,9) +
+                    0.185587700320E-04 * pow(TAMB, 2) +
+                   -0.994575928740E-07 * pow(TAMB, 3) +
+                    0.318409457190E-09 * pow(TAMB, 4) +
+                   -0.560728448890E-12 * pow(TAMB, 5) +
+                    0.560750590590E-15 * pow(TAMB, 6) +
+                   -0.320207200030E-18 * pow(TAMB, 7) +
+                    0.971511471520E-22 * pow(TAMB, 8) +
+                   -0.121047212750E-25 * pow(TAMB, 9) +
                     0.1185976 * exp(-0.1183432E-03 * pow(TAMB - 0.1269686E+03, 2)))
         else:
             VREF =( 0.394501280250E-01 * TAMB +
