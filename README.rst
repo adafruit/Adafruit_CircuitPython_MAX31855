@@ -1,5 +1,5 @@
-﻿Introduction
-============
+Introduction
+=============
 
 .. image:: https://readthedocs.org/projects/adafruit-circuitpython-max31855/badge/?version=latest
     :target: https://circuitpython.readthedocs.io/projects/max31855/en/latest/
