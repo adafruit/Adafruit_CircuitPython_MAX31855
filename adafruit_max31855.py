@@ -44,6 +44,7 @@ Implementation Notes
 * Adafruit's Bus Device library: https://github.com/adafruit/Adafruit_CircuitPython_BusDevice
 """
 import math
+
 try:
     import struct
 except ImportError:
@@ -53,6 +54,7 @@ from adafruit_bus_device.spi_device import SPIDevice
 
 __version__ = "0.0.0-auto.0"
 __repo__ = "https://github.com/adafruit/Adafruit_CircuitPython_MAX31855.git"
+
 
 class MAX31855:
     """
@@ -65,7 +67,7 @@ class MAX31855:
 
     def _read(self, internal=False):
         with self.spi_device as spi:
-            spi.readinto(self.data)  #pylint: disable=no-member
+            spi.readinto(self.data)  # pylint: disable=no-member
         if self.data[3] & 0x01:
             raise RuntimeError("thermocouple not connected")
         if self.data[3] & 0x02:
@@ -74,7 +76,7 @@ class MAX31855:
             raise RuntimeError("short circuit to power")
         if self.data[1] & 0x01:
             raise RuntimeError("faulty reading")
-        temp, refer = struct.unpack('>hh', self.data)
+        temp, refer = struct.unpack(">hh", self.data)
         refer >>= 4
         temp >>= 2
         if internal:
@@ -107,63 +109,76 @@ class MAX31855:
         VOUT = 0.041276 * (TR - TAMB)
         # cold junction equivalent thermocouple voltage
         if TAMB >= 0:
-            VREF =(-0.176004136860E-01 +
-                    0.389212049750E-01 * TAMB +
-                    0.185587700320E-04 * math.pow(TAMB, 2) +
-                   -0.994575928740E-07 * math.pow(TAMB, 3) +
-                    0.318409457190E-09 * math.pow(TAMB, 4) +
-                   -0.560728448890E-12 * math.pow(TAMB, 5) +
-                    0.560750590590E-15 * math.pow(TAMB, 6) +
-                   -0.320207200030E-18 * math.pow(TAMB, 7) +
-                    0.971511471520E-22 * math.pow(TAMB, 8) +
-                   -0.121047212750E-25 * math.pow(TAMB, 9) +
-                    0.1185976 * math.exp(-0.1183432E-03 * math.pow(TAMB - 0.1269686E+03, 2)))
+            VREF = (
+                -0.176004136860e-01
+                + 0.389212049750e-01 * TAMB
+                + 0.185587700320e-04 * math.pow(TAMB, 2)
+                + -0.994575928740e-07 * math.pow(TAMB, 3)
+                + 0.318409457190e-09 * math.pow(TAMB, 4)
+                + -0.560728448890e-12 * math.pow(TAMB, 5)
+                + 0.560750590590e-15 * math.pow(TAMB, 6)
+                + -0.320207200030e-18 * math.pow(TAMB, 7)
+                + 0.971511471520e-22 * math.pow(TAMB, 8)
+                + -0.121047212750e-25 * math.pow(TAMB, 9)
+                + 0.1185976
+                * math.exp(-0.1183432e-03 * math.pow(TAMB - 0.1269686e03, 2))
+            )
         else:
-            VREF =( 0.394501280250E-01 * TAMB +
-                    0.236223735980E-04 * math.pow(TAMB, 2) +
-                   -0.328589067840E-06 * math.pow(TAMB, 3) +
-                   -0.499048287770E-08 * math.pow(TAMB, 4) +
-                   -0.675090591730E-10 * math.pow(TAMB, 5) +
-                   -0.574103274280E-12 * math.pow(TAMB, 6) +
-                   -0.310888728940E-14 * math.pow(TAMB, 7) +
-                   -0.104516093650E-16 * math.pow(TAMB, 8) +
-                   -0.198892668780E-19 * math.pow(TAMB, 9) +
-                   -0.163226974860E-22 * math.pow(TAMB, 10))
+            VREF = (
+                0.394501280250e-01 * TAMB
+                + 0.236223735980e-04 * math.pow(TAMB, 2)
+                + -0.328589067840e-06 * math.pow(TAMB, 3)
+                + -0.499048287770e-08 * math.pow(TAMB, 4)
+                + -0.675090591730e-10 * math.pow(TAMB, 5)
+                + -0.574103274280e-12 * math.pow(TAMB, 6)
+                + -0.310888728940e-14 * math.pow(TAMB, 7)
+                + -0.104516093650e-16 * math.pow(TAMB, 8)
+                + -0.198892668780e-19 * math.pow(TAMB, 9)
+                + -0.163226974860e-22 * math.pow(TAMB, 10)
+            )
         # total thermoelectric voltage
         VTOTAL = VOUT + VREF
         # determine coefficients
         # https://srdata.nist.gov/its90/type_k/kcoefficients_inverse.html
-        if -5.891 <= VTOTAL <=0:
-            DCOEF = (0.0000000E+00,
-                     2.5173462E+01,
-                    -1.1662878E+00,
-                    -1.0833638E+00,
-                    -8.9773540E-01,
-                    -3.7342377E-01,
-                    -8.6632643E-02,
-                    -1.0450598E-02,
-                    -5.1920577E-04)
+        if -5.891 <= VTOTAL <= 0:
+            DCOEF = (
+                0.0000000e00,
+                2.5173462e01,
+                -1.1662878e00,
+                -1.0833638e00,
+                -8.9773540e-01,
+                -3.7342377e-01,
+                -8.6632643e-02,
+                -1.0450598e-02,
+                -5.1920577e-04,
+            )
         elif 0 < VTOTAL <= 20.644:
-            DCOEF = (0.000000E+00,
-                     2.508355E+01,
-                     7.860106E-02,
-                    -2.503131E-01,
-                     8.315270E-02,
-                    -1.228034E-02,
-                     9.804036E-04,
-                    -4.413030E-05,
-                     1.057734E-06,
-                    -1.052755E-08)
+            DCOEF = (
+                0.000000e00,
+                2.508355e01,
+                7.860106e-02,
+                -2.503131e-01,
+                8.315270e-02,
+                -1.228034e-02,
+                9.804036e-04,
+                -4.413030e-05,
+                1.057734e-06,
+                -1.052755e-08,
+            )
         elif 20.644 < VTOTAL <= 54.886:
-            DCOEF = (-1.318058E+02,
-                      4.830222E+01,
-                     -1.646031E+00,
-                      5.464731E-02,
-                     -9.650715E-04,
-                      8.802193E-06,
-                     -3.110810E-08)
+            DCOEF = (
+                -1.318058e02,
+                4.830222e01,
+                -1.646031e00,
+                5.464731e-02,
+                -9.650715e-04,
+                8.802193e-06,
+                -3.110810e-08,
+            )
         else:
-            raise RuntimeError("Total thermoelectric voltage out of range:{}".format(VTOTAL))
+            raise RuntimeError(
+                "Total thermoelectric voltage out of range:{}".format(VTOTAL)
+            )
         # compute temperature
         TEMPERATURE = 0
         for n, c in enumerate(DCOEF):

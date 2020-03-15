@@ -11,5 +11,5 @@ max31855 = adafruit_max31855.MAX31855(spi, cs)
 while True:
     tempC = max31855.temperature
     tempF = tempC * 9 / 5 + 32
-    print('Temperature: {} C {} F '.format(tempC, tempF))
+    print("Temperature: {} C {} F ".format(tempC, tempF))
     time.sleep(2.0)
