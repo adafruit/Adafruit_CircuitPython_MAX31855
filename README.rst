@@ -5,7 +5,7 @@ Introduction
     :target: https://circuitpython.readthedocs.io/projects/max31855/en/latest/
     :alt: Documentation Status
 
-.. image :: https://img.shields.io/discord/327254708534116352.svg
+.. image:: https://img.shields.io/discord/327254708534116352.svg
     :target: https://discord.gg/nBQh6qu
     :alt: Discord
 
