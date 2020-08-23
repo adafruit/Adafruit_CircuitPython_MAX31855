@@ -100,7 +100,7 @@ class MAX31855:
         raw voltages and NIST approximation for Type K, see:
         https://srdata.nist.gov/its90/download/type_k.tab
         """
-        # pylint: disable=bad-whitespace, bad-continuation, invalid-name
+        # pylint: disable=invalid-name
         # temperature of remote thermocouple junction
         TR = self.temperature
         # temperature of device (cold junction)
