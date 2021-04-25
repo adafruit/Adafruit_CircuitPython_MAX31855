@@ -3,7 +3,7 @@
 # SPDX-License-Identifier: MIT
 
 """
-``adafruit_max31855``
+`adafruit_max31855`
 ===========================
 
 This is a CircuitPython driver for the Maxim Integrated MAX31855 thermocouple
@@ -21,9 +21,11 @@ Implementation Notes
 
 **Software and Dependencies:**
 
-* Adafruit CircuitPython firmware for the ESP8622 and M0-based boards:
-  https://github.com/adafruit/circuitpython/releases
+* Adafruit CircuitPython firmware for the supported boards:
+  https://circuitpython.org/downloads
+
 * Adafruit's Bus Device library: https://github.com/adafruit/Adafruit_CircuitPython_BusDevice
+
 """
 import math
 
@@ -41,6 +43,36 @@ __repo__ = "https://github.com/adafruit/Adafruit_CircuitPython_MAX31855.git"
 class MAX31855:
     """
     Driver for the MAX31855 thermocouple amplifier.
+
+    :param ~busio.SPI spi: The SPI bus the MAX31856 is connected to.
+    :param ~microcontroller.Pin cs: The pin used for the CS signal.
+
+
+    **Quickstart: Importing and using the MAX31855**
+
+        Here is an example of using the :class:`MAX31855` class.
+        First you will need to import the libraries to use the sensor
+
+        .. code-block:: python
+
+            import board
+            from digitalio import DigitalInOut, Direction
+            import adafruit_max31855
+
+        Once this is done you can define your `board.SPI` object and define your sensor object
+
+        .. code-block:: python
+
+            spi = board.SPI()
+            cs = digitalio.DigitalInOut(board.D5)  # Chip select of the MAX31855 board.
+            sensor = adafruit_max31856.MAX31855(spi, cs)
+
+
+        Now you have access to the :attr:`temperature` attribute
+
+        .. code-block:: python
+
+            temperature = sensor.temperature
     """
 
     def __init__(self, spi, cs):

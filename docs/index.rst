@@ -23,6 +23,8 @@ Table of Contents
 .. toctree::
     :caption: Tutorials
 
+    MAX31855 Thermocouple Learning Guide <https://learn.adafruit.com/thermocouple/>
+
 .. toctree::
     :caption: Related Products
 
