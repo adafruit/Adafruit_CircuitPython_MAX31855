@@ -56,7 +56,7 @@ Usage Example
 
 Of course, you must import the library to use it:
 
-.. code:: python
+.. code:: python3
 
     import adafruit_max31855
 
@@ -64,24 +64,23 @@ You also need to create an SPI interface object, and a pin object for the
 chip select pin. You can use any pin for the CS, but we use D5 here:
 
 
-.. code:: python
+.. code:: python3
 
-    from busio import SPI
     from digitalio import DigitalInOut
     import board
 
-    spi = SPI(clock=board.SCK, MISO=board.MISO, MOSI=board.MOSI)
+    spi = board.SPI()
     cs = DigitalInOut(board.D5)
 
 Next, just create the sensor object:
 
-.. code:: python
+.. code:: python3
 
     sensor = adafruit_max31855.MAX31855(spi, cs)
 
 And you can start making measurements:
 
-.. code:: python
+.. code:: python3
 
     print(sensor.temperature)
 
