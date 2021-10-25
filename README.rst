@@ -88,6 +88,11 @@ The temperature is read in degrees Celsius (°C). You have to convert it to
 other units yourself, if you need it.
 
 
+Documentation
+=============
+
+API documentation for this library can be found on `Read the Docs <https://circuitpython.readthedocs.io/projects/max31855/en/latest/>`_.
+
 Contributing
 ============
 
