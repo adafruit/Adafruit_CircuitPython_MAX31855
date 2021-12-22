@@ -28,11 +28,7 @@ Implementation Notes
 
 """
 import math
-
-try:
-    import struct
-except ImportError:
-    import ustruct as struct
+import struct
 
 from adafruit_bus_device.spi_device import SPIDevice
 
