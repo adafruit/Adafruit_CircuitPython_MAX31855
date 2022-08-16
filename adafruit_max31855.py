@@ -32,7 +32,7 @@ import struct
 
 from adafruit_bus_device.spi_device import SPIDevice
 
-__version__ = "0.0.0-auto.0"
+__version__ = "0.0.0+auto.0"
 __repo__ = "https://github.com/adafruit/Adafruit_CircuitPython_MAX31855.git"
 
 
