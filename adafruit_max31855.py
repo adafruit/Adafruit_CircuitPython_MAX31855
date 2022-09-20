@@ -35,7 +35,7 @@ from adafruit_bus_device.spi_device import SPIDevice
 try:
     import typing  # pylint: disable=unused-import
     from digitalio import DigitalInOut
-    from board import SPI
+    from busio import SPI
 except ImportError:
     pass
 
