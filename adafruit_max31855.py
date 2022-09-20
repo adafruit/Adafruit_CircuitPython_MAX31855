@@ -193,9 +193,7 @@ class MAX31855:
                 -3.110810e-08,
             )
         else:
-            raise RuntimeError(
-                f"Total thermoelectric voltage out of range:{VTOTAL}"
-            )
+            raise RuntimeError(f"Total thermoelectric voltage out of range:{VTOTAL}")
         # compute temperature
         TEMPERATURE = 0
         for n, c in enumerate(DCOEF):
