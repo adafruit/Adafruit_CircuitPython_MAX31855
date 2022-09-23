@@ -32,6 +32,13 @@ import struct
 
 from adafruit_bus_device.spi_device import SPIDevice
 
+try:
+    import typing  # pylint: disable=unused-import
+    from digitalio import DigitalInOut
+    from busio import SPI
+except ImportError:
+    pass
+
 __version__ = "0.0.0+auto.0"
 __repo__ = "https://github.com/adafruit/Adafruit_CircuitPython_MAX31855.git"
 
@@ -71,11 +78,11 @@ class MAX31855:
             temperature = sensor.temperature
     """
 
-    def __init__(self, spi, cs):
+    def __init__(self, spi: SPI, cs: DigitalInOut) -> None:
         self.spi_device = SPIDevice(spi, cs)
         self.data = bytearray(4)
 
-    def _read(self, internal=False):
+    def _read(self, internal: bool = False) -> int:
         with self.spi_device as spi:
             spi.readinto(self.data)  # pylint: disable=no-member
         if self.data[3] & 0x01:
@@ -94,17 +101,17 @@ class MAX31855:
         return temp
 
     @property
-    def temperature(self):
+    def temperature(self) -> float:
         """Thermocouple temperature in degrees Celsius."""
         return self._read() / 4
 
     @property
-    def reference_temperature(self):
+    def reference_temperature(self) -> float:
         """Internal reference temperature in degrees Celsius."""
         return self._read(True) * 0.0625
 
     @property
-    def temperature_NIST(self):
+    def temperature_NIST(self) -> float:
         """
         Thermocouple temperature in degrees Celsius, computed using
         raw voltages and NIST approximation for Type K, see:
@@ -186,9 +193,7 @@ class MAX31855:
                 -3.110810e-08,
             )
         else:
-            raise RuntimeError(
-                "Total thermoelectric voltage out of range:{}".format(VTOTAL)
-            )
+            raise RuntimeError(f"Total thermoelectric voltage out of range:{VTOTAL}")
         # compute temperature
         TEMPERATURE = 0
         for n, c in enumerate(DCOEF):
