@@ -78,7 +78,9 @@ class MAX31855:
             temperature = sensor.temperature
     """
 
-    def __init__(self, spi: SPI, cs: DigitalInOut) -> None:
+    def __init__(
+        self, spi: SPI, cs: DigitalInOut  # pylint: disable=invalid-name
+    ) -> None:
         self.spi_device = SPIDevice(spi, cs)
         self.data = bytearray(4)
 
