@@ -27,15 +27,17 @@ Implementation Notes
 * Adafruit's Bus Device library: https://github.com/adafruit/Adafruit_CircuitPython_BusDevice
 
 """
+
 import math
 import struct
 
 from adafruit_bus_device.spi_device import SPIDevice
 
 try:
-    import typing  # pylint: disable=unused-import
-    from digitalio import DigitalInOut
+    import typing
+
     from busio import SPI
+    from digitalio import DigitalInOut
 except ImportError:
     pass
 
@@ -78,15 +80,13 @@ class MAX31855:
             temperature = sensor.temperature
     """
 
-    def __init__(
-        self, spi: SPI, cs: DigitalInOut  # pylint: disable=invalid-name
-    ) -> None:
+    def __init__(self, spi: SPI, cs: DigitalInOut) -> None:
         self.spi_device = SPIDevice(spi, cs)
         self.data = bytearray(4)
 
     def _read(self, internal: bool = False) -> int:
         with self.spi_device as spi:
-            spi.readinto(self.data)  # pylint: disable=no-member
+            spi.readinto(self.data)
         if self.data[3] & 0x01:
             raise RuntimeError("thermocouple not connected")
         if self.data[3] & 0x02:
@@ -119,7 +119,6 @@ class MAX31855:
         raw voltages and NIST approximation for Type K, see:
         https://srdata.nist.gov/its90/download/type_k.tab
         """
-        # pylint: disable=invalid-name
         # temperature of remote thermocouple junction
         TR = self.temperature
         # temperature of device (cold junction)
@@ -139,8 +138,7 @@ class MAX31855:
                 + -0.320207200030e-18 * math.pow(TAMB, 7)
                 + 0.971511471520e-22 * math.pow(TAMB, 8)
                 + -0.121047212750e-25 * math.pow(TAMB, 9)
-                + 0.1185976
-                * math.exp(-0.1183432e-03 * math.pow(TAMB - 0.1269686e03, 2))
+                + 0.1185976 * math.exp(-0.1183432e-03 * math.pow(TAMB - 0.1269686e03, 2))
             )
         else:
             VREF = (
