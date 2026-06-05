@@ -87,6 +87,11 @@ class MAX31855:
     def _read(self, internal: bool = False) -> int:
         with self.spi_device as spi:
             spi.readinto(self.data)
+        temp, refer = struct.unpack(">hh", self.data)
+        refer >>= 4
+        temp >>= 2
+        if internal:
+            return refer
         if self.data[3] & 0x01:
             raise RuntimeError("thermocouple not connected")
         if self.data[3] & 0x02:
@@ -95,11 +100,6 @@ class MAX31855:
             raise RuntimeError("short circuit to power")
         if self.data[1] & 0x01:
             raise RuntimeError("faulty reading")
-        temp, refer = struct.unpack(">hh", self.data)
-        refer >>= 4
-        temp >>= 2
-        if internal:
-            return refer
         return temp
 
     @property
